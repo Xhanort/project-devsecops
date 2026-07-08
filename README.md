@@ -15,6 +15,10 @@ Tujuan implementasi adalah meningkatkan keamanan aplikasi sejak tahap developmen
 
 # Architecture
 
+
+<img width="1286" height="724" alt="diagram" src="https://github.com/user-attachments/assets/771c9793-9dd0-4f3f-b130-432a4849c4a3" />
+
+
 ```text
                         Developer
                             │
