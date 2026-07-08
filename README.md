@@ -16,8 +16,8 @@ Tujuan implementasi adalah meningkatkan keamanan aplikasi sejak tahap developmen
 # Architecture
 
 
-```text`
-                        Developer
+````text
+                       Developer
                             │
                             ▼
                     Git Repository
@@ -55,9 +55,8 @@ Tujuan implementasi adalah meningkatkan keamanan aplikasi sejak tahap developmen
         Alertmanager
             │
             ▼
-   Email / Slack / Telegram`
-```
-
+   Email / Slack / Telegram````
+````
 ---
 
 # DevSecOps Workflow
