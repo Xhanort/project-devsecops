@@ -1,0 +1,51 @@
+pipeline {
+
+    agent any
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/company/app.git'
+            }
+        }
+
+        stage('SAST Scan') {
+            steps {
+                sh 'sonar-scanner'
+            }
+        }
+
+        stage('Secret Scan') {
+            steps {
+                sh 'gitleaks detect --source .'
+            }
+        }
+
+        stage('Dependency Scan') {
+            steps {
+                sh 'trivy fs .'
+            }
+        }
+
+        stage('Build Image') {
+            steps {
+                sh 'docker build -t backend:latest .'
+            }
+        }
+
+        stage('Image Scan') {
+            steps {
+                sh 'trivy image backend:latest'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sh 'kubectl apply -f kubernetes/'
+            }
+        }
+
+    }
+
+}
