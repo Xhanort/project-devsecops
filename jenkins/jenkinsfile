@@ -1,25 +1,20 @@
 pipeline {
-
     agent any
-
     stages {
-
         stage('Checkout') {
             steps {
                 git 'https://github.com/company/app.git'
             }
         }
-
         stage('SAST Scan') {
             steps {
                 sh 'sonar-scanner'
             }
         }
-
         stage('Quality Gate') {
-                steps {
+            steps {
                 timeout(time: 5, unit: 'MINUTES') {
-                waitForQualityGate abortPipeline: true
+                    waitForQualityGate abortPipeline: true
                 }
             }
         }
@@ -28,44 +23,41 @@ pipeline {
                 sh 'gitleaks detect --source .'
             }
         }
-
         stage('Dependency Scan') {
             steps {
                 sh 'trivy fs .'
             }
         }
-
         stage('Build Image') {
             steps {
                 sh 'docker build -t backend:latest .'
             }
         }
-
         stage('Image Scan') {
             steps {
                 sh 'trivy image backend:latest'
             }
         }
-
         stage('Deploy') {
             steps {
                 sh 'kubectl apply -f kubernetes/'
             }
         }
-
-post {
-    failure {
-        slackSend(
-            channel: '#devsecops-alert',
-            color: 'danger',
-            message: "❌ Pipeline FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER} - security gate tidak lolos. Cek: ${env.BUILD_URL}"
-        )
     }
-    success {
-        slackSend(
-            channel: '#devsecops-alert',
-            color: 'good',
-            message: "✅ Pipeline SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER} - semua security check lolos."
-        )
+    post {
+        failure {
+            slackSend(
+                channel: '#devsecops-alert',
+                color: 'danger',
+                message: "❌ Pipeline FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER} - security gate tidak lolos. Cek: ${env.BUILD_URL}"
+            )
+        }
+        success {
+            slackSend(
+                channel: '#devsecops-alert',
+                color: 'good',
+                message: "✅ Pipeline SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER} - semua security check lolos."
+            )
+        }
     }
 }
