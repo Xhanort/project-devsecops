@@ -1,13 +1,20 @@
 [INPUT]
+    Name              tail
+    Path              /var/log/containers/*.log
+    Parser            docker
+    Tag               kube.*
+    Refresh_Interval  5
 
-    Name tail
-
-    Path /var/log/containers/*.log
+[FILTER]
+    Name                kubernetes
+    Match               kube.*
+    Kube_URL            https://kubernetes.default.svc:443
+    Merge_Log           On
 
 [OUTPUT]
-
-    Name es
-
-    Host elasticsearch
-
-    Port 9200
+    Name    es
+    Match   *
+    Host    elasticsearch
+    Port    9200
+    Index   app-logs
+    Logstash_Format On
