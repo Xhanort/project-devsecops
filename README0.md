@@ -1,24 +1,16 @@
-# DevSecOps & Observability Kubernetes
+# DevSecOps & Observability on Kubernetes
 
-## Studi Kasus
+## Study Case
 
-Implementasi DevSecOps Pipeline dan Observability pada Kubernetes menggunakan:
+Repository ini berisi usulan implementasi DevSecOps dan Observability pada lingkungan Kubernetes dengan studi kasus perusahaan yang telah memiliki:
 
-- Git
+- Git Repository
 - Jenkins
-- Kubernetes
-- SonarQube
-- Gitleaks
-- Trivy
-- Prometheus
-- Grafana
-- Alertmanager
-- EFK Stack
-- Jaeger
+- Kubernetes Cluster
 
 ---
 
-## DevSecOps Flow
+# Architecture
 
 Developer
 
@@ -28,11 +20,11 @@ Git Repository
 
 ↓
 
-Jenkins
+Jenkins CI/CD
 
 ↓
 
-SAST
+SAST Scan
 
 ↓
 
@@ -52,21 +44,103 @@ Image Scan
 
 ↓
 
-Push Registry
+Container Registry
 
 ↓
 
-Deploy Kubernetes
+Kubernetes
 
 ↓
 
 Monitoring
 
+↓
+
+Alerting
+
 ---
 
-## Repository Structure
+# DevSecOps
+
+## Static Application Security Testing
+
+Tool
+
+- SonarQube
+- Semgrep
+
+Fungsi
+
+- SQL Injection
+- XSS
+- Code Smell
+- Hardcoded Secret
+
+---
+
+## Secret Detection
+
+Tool
+
+- Gitleaks
+
+Fungsi
+
+Mendeteksi credential yang tidak sengaja di-push ke repository.
+
+---
+
+## Dependency Scan
+
+Tool
+
+- Trivy
+
+Fungsi
+
+Mendeteksi vulnerability pada package dan Docker image.
+
+---
+
+## Secret Management
+
+Menggunakan
+
+- Kubernetes Secret
+- ConfigMap
+- RBAC
+
+---
+
+# Observability
+
+Monitoring
+
+- Prometheus
+- Grafana
+- Alertmanager
+
+Logging
+
+- Fluent Bit
+- Elasticsearch
+- Kibana
+
+Tracing
+
+- Jaeger
+
+---
+
+# Repository Structure
 
 jenkins/
+
+sast/
+
+secret-scan/
+
+dependency-scan/
 
 kubernetes/
 
@@ -78,24 +152,7 @@ tracing/
 
 ---
 
-## Security Tools
+# Author
 
-| Tool | Function |
-|------|----------|
-| SonarQube | Static Code Analysis |
-| Gitleaks | Secret Detection |
-| Trivy | Dependency & Image Scan |
-
----
-
-## Observability
-
-Prometheus
-
-Grafana
-
-Alertmanager
-
-EFK
-
-Jaeger
+Faldo Satria
+Junior DevOps Engineer
