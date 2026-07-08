@@ -1,0 +1,13 @@
+[INPUT]
+
+    Name tail
+
+    Path /var/log/containers/*.log
+
+[OUTPUT]
+
+    Name es
+
+    Host elasticsearch
+
+    Port 9200
