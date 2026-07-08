@@ -1,0 +1,19 @@
+groups:
+
+- name: application
+
+  rules:
+
+  - alert: ApplicationDown
+
+    expr: up == 0
+
+    for: 1m
+
+    labels:
+
+      severity: critical
+
+    annotations:
+
+      summary: Application Down
