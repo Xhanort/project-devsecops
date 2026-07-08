@@ -241,8 +241,4 @@ Jaeger
 
 ---
 
-# Author
 
-**Faldo Satria**
-
-Junior DevOps Engineer
